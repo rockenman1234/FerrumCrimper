@@ -1,11 +1,15 @@
 [package]
-name = "fecr"
-version = "0.1.0"
+name = "fec"
+version = "0.0.1"
 edition = "2021"
 authors = ["Kenneth Alexander Jenkins <Kjenkins60@gatech.edu>", "Alan Daniel Aguilar <Aaguilar60@gatech.edu>"]
 description = "FerrumCrimper - A Rust powered file management CLI tool"
 readme = "README.md"
+license = "GNU GPLv2"
+license-file = "LICENSE.txt"
 homepage = "https://github.com/rockenman1234/FerrumCrimper"
+keywords = ["File Compression", "CLI tools"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 anyhow = "1.0.94"

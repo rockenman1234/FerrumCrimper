@@ -13,8 +13,8 @@
 //            |||             || ||      || ||
 // -----------|||-------------||-||------||-||-------
 //            |__>            || ||      || ||
-//       FerrumCrimper's Zip implementation - src/zip.rs
-//       See above for our compression implementation.
+//       FerrumCrimper's Zip implementation - src/zip/zip_utils.rs
+//             See above for our compression implementation.
 
 use std::fs::File;
 use std::io::Write;
