@@ -1,3 +1,8 @@
+// Copyright 2024 the FerrumCrimper authors. All rights reserved. GNUv2 license.
+
+mod zip;
+
+use crate::zip::zip_utils::zip_folder;
 use std::env;
 
 // Definition of messages as constants
@@ -31,13 +36,10 @@ fn main() {
             "--hello" => {
                 println!("Hello, World!");
             }
-            "--goodbye" => {
-                println!("Goodbye, World!");
-            }
             "--license" => {
                 println!("{}", GNU_LICENSE_MESSAGE);
             }
-            "--help" => {
+            "--help" | "-h" => {
                 println!("{}", HELP_MESSAGE);
             }
             "--zip" | "-z" => {
