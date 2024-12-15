@@ -40,6 +40,9 @@ fn main() {
             "--help" => {
                 println!("{}", HELP_MESSAGE);
             }
+            "--zip" | "-z" => {
+                println!("Zip file");
+            }
             _ => {
                 println!("{}", UNKOWN_FLAG_MESSAGE);
             }

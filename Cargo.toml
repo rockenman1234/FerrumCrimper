@@ -2,5 +2,10 @@
 name = "fec"
 version = "0.1.0"
 edition = "2021"
+authors = ["Kenneth Alexander Jenkins <Kjenkins60@gatech.edu>", "Alan Daniel Aguilar <Aaguilar60@gatech.edu>"]
+description = "FerrumCrimper - A Rust powered file management CLI tool"
+readme = "README.md"
+homepage = "https://github.com/rockenman1234/FerrumCrimper"
 
 [dependencies]
+zip = "2.2.1"
