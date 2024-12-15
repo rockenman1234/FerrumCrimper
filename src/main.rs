@@ -12,13 +12,17 @@ const HELP_MESSAGE: &str = r#"
 ferrumcrimper: A simple command-line tool for crimping files
 
 USEAGE:
-    FerrumCrimper [FLAGS] [infile] [outfile]
-First option must be a mode flag:
-  --hello       Print 'Hello, World!'
+    fec [FLAGS] [infile] [outfile (optional, and not yet implemented)]
+
+First option must be a mode flag, followed by an optional input file and an optional output file.
+
 OPTIONS:
-  --license    Print the license information
-  --help       Display this help message
-  --zip, -z    Zip a folder
+    --license   Display the license information.
+    --help, -h  Display this helpful message.
+    --zip, -z   Zip a folder, specify the folder to zip as the second argument. 
+                Example: 'fec --zip /path/to/folder'. The zipped file will be saved 
+                in the same directory as the input folder, or if an output location is 
+                specified, the zipped file will be saved there.
 "#;
 const GNU_LICENSE_MESSAGE: &str = r#"
 Ferrum Crimper Version 0.0.1,
