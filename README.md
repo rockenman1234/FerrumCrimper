@@ -1,1 +1,1 @@
- A Rust Powered Compression Tool 
+ A Rust Powered Compression and File Management Comandline Tool 
