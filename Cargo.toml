@@ -8,4 +8,6 @@ readme = "README.md"
 homepage = "https://github.com/rockenman1234/FerrumCrimper"
 
 [dependencies]
+anyhow = "1.0.94"
+walkdir = "2.5.0"
 zip = "2.2.1"
