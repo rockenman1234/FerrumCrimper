@@ -12,7 +12,7 @@ const HELP_MESSAGE: &str = r#"
 ferrumcrimper: A simple command-line tool for crimping files
 
 USEAGE:
-    fec [FLAGS] [infile] [outfile (optional, and not yet implemented)]
+    fecr [FLAGS] [infile] [outfile (optional, and not yet implemented)]
 
 First option must be a mode flag, followed by an optional input file and an optional output file.
 
