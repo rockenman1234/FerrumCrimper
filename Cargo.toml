@@ -1,6 +1,6 @@
 [package]
 name = "fec"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
 authors = ["Kenneth Alexander Jenkins <Kjenkins60@gatech.edu>", "Alan Daniel Aguilar <Aaguilar60@gatech.edu>"]
 description = "FerrumCrimper - A Rust powered file management CLI tool"
