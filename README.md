@@ -5,8 +5,8 @@
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
 
 [![Rust](https://github.com/rockenman1234/FerrumCrimper/actions/workflows/rust.yml/badge.svg)](https://github.com/rockenman1234/FerrumCrimper/actions/workflows/rust.yml)
-![Crates.io Total Downloads](https://img.shields.io/crates/d/fecr)
-![GitHub License](https://img.shields.io/github/license/rockenman1234/ferrumcrimper)
+[![Crates.io Total Downloads](https://img.shields.io/crates/d/fecr)](https://crates.io/crates/fecr)
+[![GitHub License](https://img.shields.io/github/license/rockenman1234/ferrumcrimper)](https://github.com/rockenman1234/FerrumCrimper/blob/main/LICENSE.txt)
 
 
 # FerrumCrimper
