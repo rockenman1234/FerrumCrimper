@@ -15,7 +15,7 @@ A fast, Rust-powered CLI tool for efficient file management, compression, and ar
 </div>
 
 > [!CAUTION]
-> This project is still in active development, use at your own risk! MultiThreaded support still a work in progress.
+> This project is still in active development, use at your own risk! Multithreading support still a work in progress.
 
 ## Installation 🦾
 
