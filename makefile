@@ -1,6 +1,6 @@
 build:
 	@echo "Building the program..."
-	cargo build --release --verbose --bin fecr
+	cargo build --release --verbose
 
 run:
 	@echo "Running the program..."
