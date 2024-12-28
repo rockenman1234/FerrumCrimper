@@ -10,7 +10,7 @@ use std::path::Path;
 // Definition of messages as constants
 const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information.";
 const GNU_LICENSE_MESSAGE: &str = r#"
-Ferrum Crimper Version 0.0.1,
+Ferrum Crimper Version 0.0.2,
 
 Copyright (C) 2024 Alan D. Aguilar, Kenneth A. Jenkins,
 and contributors. Licensed under the GNU GPLv2+: GNU General Public License version 2 or later.
