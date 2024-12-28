@@ -49,7 +49,7 @@ place them in a directory included in your system’s `PATH`. Compiled binaries 
   ./target/release/fecr --help
   ```
 
-## Why Use FerrumCrimper?
+## Why Use FerrumCrimper? ℹ️
 
 FerrumCrimper is designed to provide efficient file management and compression with these benefits:
 
@@ -58,7 +58,11 @@ FerrumCrimper is designed to provide efficient file management and compression w
 - __Secure Data Handling:__ With strong Rust-based implementations, the tool ensures safe and secure handling of data throughout compression and archival processes.
 - __Multi-Format Support:__ FerrumCrimper supports various file formats, making it a versatile tool for a variety of workflows.
 
-## Supported File Formats
+## Supported File Formats ⚙️
+> [!NOTE]
+> This project is still in active development, as of `v0.0.2` the archiving and unarchiving of zip files is suppprted with user defined names.
+> Run `fecr -h` for more info.
+
 FerrumCrimper plans to support a wide range of file formats for both compression and extraction:
 
 - ZIP: Zip archive and unarchive support.
@@ -70,17 +74,15 @@ FerrumCrimper plans to support a wide range of file formats for both compression
 - XZ: Xz support comming soon!
 - Others: Additional formats will be supported in future updates.
 
-## License
+## License 👨‍⚖️
 
 [This project is licensed under the GNU GPLv2 License](https://github.com/rockenman1234/FerrumCrimper/blob/main/LICENSE.txt). 
 
-
-
-## Contributing
+## Contributing 🫶
 We love and welcome contributions! To get started:
 1. Fork this repository.
 2. Create a new branch for your feature or bug fix.
 3. Make your changes, and test thoroughly.
 4. Submit a pull request with a description of your changes, and we'll take a look - thanks!
 
-[Please read our code of conduct before submitting any pull requests.](https://github.com/rockenman1234/FerrumCrimper/blob/main/CODE_OF_CONDUCT.md)
+[Please read our code of conduct before submitting a pull request.](https://github.com/rockenman1234/FerrumCrimper/blob/main/CODE_OF_CONDUCT.md)
