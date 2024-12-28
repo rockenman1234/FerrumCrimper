@@ -3,7 +3,6 @@
 <img src="./docs/assets/ferris.png" width="200px" align="center">
 
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
-![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white)
 
 ![Crates.io Total Downloads](https://img.shields.io/crates/d/fecr)
 ![GitHub License](https://img.shields.io/github/license/rockenman1234/ferrumcrimper)
