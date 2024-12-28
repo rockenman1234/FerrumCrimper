@@ -26,6 +26,7 @@ If you have cargo installed, simply run the command below to install FerrumCrimp
 ```
 cargo install fecr
 ```
+[Be sure to check out or crates.io page here!](https://crates.io/crates/fecr)
 
 #### Looking For Pre-Built Binaries?
 - Visit the [Releases page](https://github.com/rockenman1234/ferrumcrimper/releases) to download the latest version for your platform.
