@@ -40,14 +40,14 @@ cargo install fecr
   ```
 3. Navigate to this folder using the `cd` command.
 4. If you have `make` installed, you may use the following command to compile binaries for your operating system. You may then
-place them in a directory included in your system’s `PATH`. They are located under 
+place them in a directory included in your system’s `PATH`. Compiled binaries will be located under `./target/release/`
   ```
   make
   ```
 5. *(Optional)* If you do not have `make` installed, you can run the following commands yourself using cargo as a substitute:
   ```
   cargo build --release --verbose
-  cargo run --release
+  ./target/release/fecr --help
   ```
 
 ## Why Use FerrumCrimper?
