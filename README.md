@@ -65,8 +65,9 @@ FerrumCrimper plans to support a wide range of file formats for both compression
   - Use `--zip` to compress, `--unzip` to extract.
 - TAR: Tar support coming soon!
 - GZ: Gzip support coming soon!
-- 7z: 7zip support coming soon!
-- Bzip2: Bzip support coming soon!
+- 7Z: 7zip support coming soon!
+- BZIP2: BZip2 support coming soon!
+- XZ: Xz support comming soon!
 - Others: Additional formats will be supported in future updates.
 
 ## License
