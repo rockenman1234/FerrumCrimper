@@ -12,7 +12,7 @@ const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information
 const GNU_LICENSE_MESSAGE: &str = r#"
 Ferrum Crimper Version 0.0.2,
 
-Copyright (C) 2024 Alan D. Aguilar, Kenneth A. Jenkins,
+Copyright (C) 2024 - Present: Alan D. Aguilar, Kenneth A. Jenkins,
 and contributors. Licensed under the GNU GPLv2+: GNU General Public License version 2 or later.
 Ferrum Crimper comes with ABSOLUTELY NO WARRANTY.
 
@@ -21,7 +21,7 @@ have been provided with Ferrum Crimper. If not, you can
 find it at: <https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html>.
 
 This is free software, and you are welcome to redistribute it
-under certain conditions, as described above. Type `fec --help` for assistance."#;
+under certain conditions, as described above. Type `fecr --help` for assistance."#;
 const HELP_MESSAGE: &str = r#"
 ferrumcrimper (fecr): A simple command-line tool for crimping files
 
@@ -43,6 +43,11 @@ MODES:
 OPERATORS:
     --name, -n      Specify the name of the output 
                     file or folder.
+
+EXAMPLES:
+    ferrumcrimper --zip /path/to/folder -n output.zip
+    ferrumcrimper --unzip /path/to/zip -n "output_folder"
+    fecr --license
 "#;
 
 fn main() {
