@@ -244,6 +244,108 @@ fn main() {
                     }
                 }
             }
+            "--tar" | "-t" => {
+                if args.len() < 3 {
+                    println!("Error: You must specify a folder to tar.");
+                    return;
+                }
+            
+                let folder_dir = &args[2];
+                let path = Path::new(folder_dir);
+            
+                // Initialize file_name as None by default
+                let mut file_name: Option<String> = None;
+                let mut output_dir: Option<String> = None;
+            
+                // Check if -n or --name is provided for a custom name
+                let mut i = 3; // Start checking from index 3 for name-related flags
+                while i < args.len() {
+                    match args[i].as_str() {
+                        "-n" | "--name" => {
+                            if i + 1 < args.len() {
+                                file_name = Some(args[i + 1].clone());
+                                i += 1;
+                            } else {
+                                println!("Error: You must specify a name after -n or --name.");
+                                println!("See --help for more information.");
+                                return;
+                            }
+                        }
+                        "-o" | "--output" => {
+                            if i + 1 < args.len() {
+                                output_dir = Some(args[i + 1].clone());
+                                i += 1;
+                            } else {
+                                println!("Error: You must specify a directory after -o or --output.");
+                                println!("See --help for more information.");
+                                return;
+                            }
+                        }
+                        _ => {}
+                    }
+                    i += 1;
+                }
+            
+                match tar::tar_utils::tar_folder(
+                    path,
+                    file_name.as_deref(),
+                    output_dir.as_deref(),
+                ) {
+                    Ok(tar_path) => println!("Folder tarred to: {:?}", tar_path),
+                    Err(err) => println!("Error: {}", err),
+                }
+            }
+            "--untar" | "-ut" => {
+                if args.len() < 3 {
+                    println!("Error: You must specify a tar file to untar.");
+                    return;
+                }
+            
+                let tar_file = &args[2];
+                let path = Path::new(tar_file);
+            
+                // Initialize file_name as None by default
+                let mut file_name: Option<String> = None;
+                let mut output_dir: Option<String> = None;
+            
+                // Check if -n or --name is provided
+                let mut i = 3; // Start checking from index 3 for name-related flags
+                while i < args.len() {
+                    match args[i].as_str() {
+                        "-n" | "--name" => {
+                            if i + 1 < args.len() {
+                                file_name = Some(args[i + 1].clone());
+                                i += 1;
+                            } else {
+                                println!("Error: You must specify a name after -n or --name.");
+                                println!("See --help for more information.");
+                                return;
+                            }
+                        }
+                        "-o" | "--output" => {
+                            if i + 1 < args.len() {
+                                output_dir = Some(args[i + 1].clone());
+                                i += 1;
+                            } else {
+                                println!("Error: You must specify a directory after -o or --output.");
+                                println!("See --help for more information.");
+                                return;
+                            }
+                        }
+                        _ => {}
+                    }
+                    i += 1;
+                }
+            
+                match tar::tar_utils::untar_file(
+                    path,
+                    file_name.as_deref(),
+                    output_dir.as_deref(),
+                ) {
+                    Ok(extracted_path) => println!("Files extracted to: {:?}", extracted_path),
+                    Err(err) => println!("Error: {}", err),
+                }
+            }
             _ => {
                 println!("{}", UNKOWN_FLAG_MESSAGE.trim_start());
             }

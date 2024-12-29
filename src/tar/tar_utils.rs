@@ -6,7 +6,7 @@ use tar::{Builder, Archive};
 use std::path::{Path, PathBuf};
 use anyhow::{self, Result, Context};
 
-pub fn tar(
+pub fn tar_folder(
     folder_dir: &Path,
     file_name: Option<&str>,
     output_dir: Option<&str>,
@@ -50,7 +50,7 @@ pub fn tar(
     Ok(output_path)
 }
 
-pub fn untar(
+pub fn untar_file(
     folder_dir: &Path,
     file_name: Option<&str>,
     output_dir: Option<&str>,
