@@ -8,7 +8,7 @@ readme = "README.md"
 license = "GPL-2.0-or-later"
 license-file = "LICENSE.txt"
 homepage = "https://github.com/rockenman1234/FerrumCrimper"
-keywords = ["file-compression", "multi-tool", "cli-tools", "encryption", "files", "compression"]
+keywords = ["file-compression", "cli-tools", "encryption", "files", "compression"]
 categories = ["command-line-utilities", "command-line-interface", "encoding", "compression"]
 
 [[bin]]
