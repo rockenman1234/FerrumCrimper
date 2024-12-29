@@ -30,11 +30,11 @@ use std::path::Path;
 
 // Definition of messages as constants
 const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information.";
+const VERSION_MESSAGE: &str = "FerrumCrimper(fecr) Version 0.0.5";
 const GNU_LICENSE_MESSAGE: &str = r#"
-Ferrum Crimper Version 0.0.5,
-
 Copyright (C) 2024 - Present: Alan D. Aguilar, Kenneth A. Jenkins,
-and contributors. Licensed under the GNU GPLv2+: GNU General Public License version 2 or later.
+and contributors. Licensed under the GNU GPLv2+: GNU General 
+Public License version 2 or later.
 Ferrum Crimper comes with ABSOLUTELY NO WARRANTY.
 
 A copy of the GNU General Public License Version 2 should 
@@ -113,10 +113,11 @@ fn main() {
                 println!("Hello, World! And Go Jackets! 🐝");
             }
             "--version" | "-v" => {
-                println!("{}", GNU_LICENSE_MESSAGE.trim_start());
+                println!("{}", VERSION_MESSAGE);
             }
             "--license" => {
-                println!("{}", GNU_LICENSE_MESSAGE.trim_start());
+                println!("{} \n", VERSION_MESSAGE);
+                print!("{}", GNU_LICENSE_MESSAGE.trim_start());
             }
             "--help" | "-h" => {
                 println!("{}", HELP_MESSAGE.trim_start());
