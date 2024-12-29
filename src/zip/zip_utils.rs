@@ -6,23 +6,40 @@ use std::path::{Path, PathBuf};
 use walkdir::WalkDir;
 use std::io::Read;
 use zip::{write::SimpleFileOptions, CompressionMethod, ZipWriter};
+use anyhow::{self, Result};
 
-pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, compression_type: Option<&str>, compression_level: Option<i64>) -> anyhow::Result<PathBuf> {
+pub fn zip_folder(
+    folder_dir: &Path,
+    file_name: Option<&str>,
+    compression_type: Option<&str>,
+    compression_level: Option<i64>,
+    output_dir: Option<&str>,
+) -> anyhow::Result<PathBuf> {
     // Ensure the folder exists
     if !folder_dir.is_dir() {
-        anyhow::bail!("Provided path is not a directory, or does not exist: {:?}", folder_dir);
+        anyhow::bail!(
+            "Provided path is not a directory, or does not exist: {:?}",
+            folder_dir
+        );
     }
 
-    // Determine the output ZIP file path
-    let zip_path = match file_name {
-        Some(name) => folder_dir
-            .parent()
-            .unwrap_or_else(|| Path::new("."))
-            .join(name)
-            .with_extension("zip"),
-        None => folder_dir.with_extension("zip"),
+    // Determine the ZIP file name
+    let zip_file_name = match file_name {
+        Some(name) => Path::new(name).with_extension("zip"),
+        None => folder_dir
+            .file_name()
+            .ok_or_else(|| anyhow::anyhow!("Folder has no valid name"))?
+            .to_os_string()
+            .into_string()
+            .map(|name| Path::new(&name).with_extension("zip"))
+            .map_err(|os_str| anyhow::anyhow!("Invalid OsString conversion: {}", os_str.to_string_lossy()))? 
     };
 
+    // Determine the output directory
+    let zip_path = match output_dir {
+        Some(dir) => Path::new(dir).join(&zip_file_name),
+        None => folder_dir.parent().unwrap_or_else(|| Path::new(".")).join(&zip_file_name),
+    };
 
     // Determine the compression method
     let compression_method = match compression_type {
@@ -30,8 +47,8 @@ pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, compression_type: 
         Some("deflate") | Some("default") => CompressionMethod::Deflated,
         Some("zstd") | Some("z") => CompressionMethod::Zstd,
         Some(invalid) => {
-            panic!("Invalid compression method: '{}'", invalid);
-        },
+            anyhow::bail!("Invalid compression method: '{}'", invalid);
+        }
         None => CompressionMethod::Deflated,
     };
 
@@ -45,8 +62,7 @@ pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, compression_type: 
                 6
             }
         }
-    };    
-
+    };
 
     // Create the ZIP file
     let file = File::create(&zip_path)?;
@@ -79,7 +95,7 @@ pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, compression_type: 
     Ok(zip_path)
 }
 
-pub fn unzip_folder(zip_file_dir: &Path, file_name: Option<&str>) -> anyhow::Result<PathBuf> {
+pub fn unzip_file(zip_file_dir: &Path, file_name: Option<&str>, output_dir: Option<&str>) -> anyhow::Result<PathBuf> {
     // Ensure the file exists and is a valid file
     if !zip_file_dir.is_file() {
         anyhow::bail!("Provided path is not a file, or does not exist: {:?}", zip_file_dir);
@@ -91,8 +107,14 @@ pub fn unzip_folder(zip_file_dir: &Path, file_name: Option<&str>) -> anyhow::Res
         None => zip_file_dir.file_stem().unwrap_or_default().to_string_lossy().into_owned(),
     };
 
+    // Determine the output directory
+    let output_dir = match output_dir {
+        Some(dir) => Path::new(dir).join(&base_name),
+        None => zip_file_dir.parent().unwrap_or_else(|| Path::new(".")).join(&base_name),
+    };
+
     // Ensure the output directory does not conflict
-    let mut output_dir = zip_file_dir.parent().unwrap_or_else(|| Path::new(".")).join(&base_name);
+    let mut output_dir = output_dir;
     let mut counter = 1;
     while output_dir.exists() {
         output_dir = zip_file_dir
@@ -135,6 +157,5 @@ pub fn unzip_folder(zip_file_dir: &Path, file_name: Option<&str>) -> anyhow::Res
             std::fs::set_permissions(&out_path, std::fs::Permissions::from_mode(mode))?;
         }
     }
-
     Ok(output_dir)
 }
