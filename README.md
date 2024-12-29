@@ -29,7 +29,7 @@ cargo install fecr
 [Be sure to check out or crates.io page here!](https://crates.io/crates/fecr)
 
 #### Looking For Pre-Built Binaries?
-Unfortunately, we do not have pre-built binaries available at this time. We recommend building from source using the instructions below if you are unable to use Crates.io.
+Currently, pre-built binaries are unavailable. If you can't use Crates.io, we suggest building from source following the instructions provided below.
 
 <!--- 
 - Visit the [Releases page](https://github.com/rockenman1234/ferrumcrimper/releases) to download the latest version for your platform.
@@ -66,7 +66,7 @@ FerrumCrimper is designed to provide efficient file management and compression w
 ## Supported File Formats ⚙️
 > [!NOTE]
 > This project is still in active development, as of `v0.0.2` the archiving and unarchiving of zip files is suppprted.
-> As of `0.0.5`, the archiving and unarchiving of tar files is supported.
+> As of `v0.0.5`, the archiving and unarchiving of tar files is supported.
 > See the usage below for more information.
 > Run `fecr -h` for more info.
 
