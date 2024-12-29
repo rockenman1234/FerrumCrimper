@@ -66,6 +66,10 @@ OPERATORS:
                     file or folder. This is optional,
                     and defaults to the inputed
                     folder or file name.
+    
+    --output, -o    Specify the output directory for
+                    the extracted files. This is optional,
+                    and defaults to the current directory.
 
     --level, -l     Specify the compression level to
                     use when zipping a folder. This 
@@ -117,7 +121,7 @@ fn main() {
                 let mut file_name: Option<String> = None;
                 let mut encryption_type: Option<String> = None;
                 let mut compression_level: Option<i64> = None;
-
+                let mut output_dir: Option<String> = None;
             
                 // Check if -n or --name is provided for a custom name
                 let mut i = 3; // Start checking from index 3 for name-related flags
@@ -125,28 +129,24 @@ fn main() {
                     match args[i].as_str() {
                         "-n" | "--name" => {
                             if i + 1 < args.len() {
-                                file_name = Some(args[i + 1].clone()); // Set the name from the next argument
-                                i += 1; // Skip the next argument as it's the value for --name or -n
+                                file_name = Some(args[i + 1].clone());
+                                i += 1;
                             } else {
-                                println!("Error: You must specify a name after the -n or --name flag.");
+                                println!("Error: You must specify a name after -n or --name.");
                                 return;
                             }
                         }
-                        _ => {}
-                    }
-                    match args[i].as_str() {
                         "-c" | "--compression" => {
                             if i + 1 < args.len() {
-                                encryption_type = Some(args[i + 1].clone()); // Set the name from the next argument
-                                i += 1; // Skip the next argument as it's the value for --name or -n
+                                encryption_type = Some(args[i + 1].clone());
+                                i += 1;
                             } else {
-                                println!("Error: You must specify a valid compression type \n after the use of the -c or --compression flag.");
+                                println!("Error: You must specify a compression method after -c or --compression.");
+                                println!("Supported encryption types are: bzip2 (bzip), deflate (default), zstd (z)");
+                                println!("See --help for more information.");
                                 return;
                             }
                         }
-                        _ => {}
-                    }
-                    match args[i].as_str() {
                         "-l" | "--level" => {
                             if i + 1 < args.len() {
                                 compression_level = match args[i + 1].parse::<i64>() {
@@ -155,10 +155,22 @@ fn main() {
                                         println!("Error: Invalid compression level specified.");
                                         return;
                                     }
-                                }; // Set the name from the next argument
-                                i += 1; // Skip the next argument as it's the value for --name or -n
+                                };
+                                i += 1;
                             } else {
-                                println!("Error: You must specify a valid compression level \n after the use of the -l or --level flag.");
+                                println!("Error: You must specify a level after -l or --level.");
+                                println!("Supported levels are: 0 to 9 for zip, deflate, and bzip2.");
+                                println!("For zstd, levels range from -7 to 22, with zero being mapped to the level.");
+                                println!("See --help for more information.");
+                                return;
+                            }
+                        }
+                        "-o" | "--output" => {
+                            if i + 1 < args.len() {
+                                output_dir = Some(args[i + 1].clone());
+                                i += 1;
+                            } else {
+                                println!("Error: You must specify a directory after -o or --output.");
                                 return;
                             }
                         }
@@ -166,20 +178,16 @@ fn main() {
                     }
                     i += 1;
                 }
-            
-                // Call the zip_folder function with the folder path and file_name
-                // Due to the way rust handles ownership, we explicitly need to convert the Option<String> to Option<&str>
-                let file_name = file_name.as_deref();
-                let encryption_type = encryption_type.as_deref();
 
-                // Call the zip_folder function with the folder path and file_name
-                match zip_folder(path, file_name, encryption_type, compression_level) {
-                    Ok(zip_path) => {
-                        println!("Folder zipped to: {:?}", zip_path);
-                    }
-                    Err(err) => {
-                        println!("Error: {}", err);
-                    }
+                match zip_folder(
+                    path,
+                    file_name.as_deref(),
+                    encryption_type.as_deref(),
+                    compression_level,
+                    output_dir.as_deref(),
+                ) {
+                    Ok(zip_path) => println!("Folder zipped to: {:?}", zip_path),
+                    Err(err) => println!("Error: {}", err),
                 }
             }
             "--unzip" | "-uz" => {
