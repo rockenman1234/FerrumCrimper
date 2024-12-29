@@ -36,7 +36,7 @@ cargo install fecr
 1. Ensure that you have Rust and Cargo installed. [You can install Rust here](https://www.rust-lang.org/).
 2. Clone the repository:
   ```
-   git clone https://github.com/username/ferrumcrimper.git
+   git clone https://github.com/rockenman1234/ferrumcrimper.git
   ```
 3. Navigate to this folder using the `cd` command.
 4. If you have `make` installed, you may use the following command to compile binaries for your operating system. You may then
