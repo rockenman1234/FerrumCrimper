@@ -9,7 +9,7 @@ license = "GPL-2.0-or-later"
 license-file = "LICENSE.txt"
 homepage = "https://github.com/rockenman1234/FerrumCrimper"
 keywords = ["file-compression", "cli-tools", "encryption", "zip"]
-categories = ["command-line-utilities", "file-management", "utilities"]
+categories = ["command-line-utilities", "command-line-interface", "encoding ", "compression"]
 
 [[bin]]
 name = "fecr"
