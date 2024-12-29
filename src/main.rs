@@ -133,6 +133,7 @@ fn main() {
                                 i += 1;
                             } else {
                                 println!("Error: You must specify a name after -n or --name.");
+                                println!("See --help for more information.");
                                 return;
                             }
                         }
