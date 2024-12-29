@@ -154,6 +154,7 @@ fn main() {
                                     Ok(level) => Some(level),
                                     Err(_) => {
                                         println!("Error: Invalid compression level specified.");
+                                        println!("See --help for more information.");
                                         return;
                                     }
                                 };
@@ -172,6 +173,7 @@ fn main() {
                                 i += 1;
                             } else {
                                 println!("Error: You must specify a directory after -o or --output.");
+                                println!("See --help for more information.");
                                 return;
                             }
                         }
@@ -194,6 +196,7 @@ fn main() {
             "--unzip" | "-uz" => {
                 if args.len() < 3 {
                     println!("Error: You must specify a zip file to unzip.");
+                    println!("See --help for more information.");
                     return;
                 }
             
