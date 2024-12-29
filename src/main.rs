@@ -31,7 +31,7 @@ use std::path::Path;
 // Definition of messages as constants
 const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information.";
 const GNU_LICENSE_MESSAGE: &str = r#"
-Ferrum Crimper Version 0.0.4,
+Ferrum Crimper Version 0.0.5,
 
 Copyright (C) 2024 - Present: Alan D. Aguilar, Kenneth A. Jenkins,
 and contributors. Licensed under the GNU GPLv2+: GNU General Public License version 2 or later.
@@ -50,43 +50,51 @@ USEAGE:
     FerrumCrimper [MODE] [INPUT PATH] [OPERATOR]
 
 MODES:
-    --license       Prints the license information.
+    --license           Prints the license information.
 
-    --help,  -h     Displays this helpful message.
+    --help,     -h      Displays this helpful message.
 
-    --version, -v   Displays the version of FerrumCrimper.
+    --version,  -v      Displays the version of FerrumCrimper.
 
-    --zip,   -z     Zip a folder, you may use 
-                    the operators listed below
-                    in conjunction with this flag.
+    --zip,      -z      Zip a folder, you may use any of
+                        the operators listed below
+                        in conjunction with this flag.
 
-    --unzip, -uz    Unzip a folder, only the 
-                    name operator is supported.
+    --unzip,    -uz     Unzip a folder, only the 
+                        name and output operator is supported.
+
+    --tar,      -t      Tar a folder, only the name
+                        operator and output operator
+                        is supported.
+
+    --untar,    -ut     Untar a folder, only the name
+                        operator and output operator
+                        is supported.                                   
 
 OPERATORS:
-    --name,  -n     Specify the name of the output 
-                    file or folder. This is optional,
-                    and defaults to the inputed
-                    folder or file name.
+    --name,     -n      Specify the name of the output 
+                        file or folder. This is optional,
+                        and defaults to the inputed
+                        folder or file name.
     
-    --output, -o    Specify the output directory for
-                    the extracted files. This is optional,
-                    and defaults to the current directory.
+    --output,   -o      Specify the output directory for
+                        the extracted files. This is optional,
+                        and defaults to the current directory.
 
-    --level, -l     Specify the compression level to
-                    use when zipping a folder. This 
-                    flag is optional.
-                    - Deflated levels range from 0 to 9. Default is 6.
-                    - Bzip2 levels range from 0 to 9. Default is 6.
-                    - Zstd levels range from -7 to 22, with zero 
-                      being mapped to the level. Default is 3.
+    --level,    -l      Specify the compression level to
+                        use when zipping a folder. This 
+                        flag is optional.
+                        - Deflated levels range from 0 to 9. Default is 6.
+                        - Bzip2 levels range from 0 to 9. Default is 6.
+                        - Zstd levels range from -7 to 22, with zero 
+                          being mapped to the level. Default is 3.
 
-    --compression,  Specify the compression method to use.
-            -c      This flag is optional, and only supports zip.
-                    Supported encryption types are:
-                    - bzip2 (bzip)
-                    - deflate (default)
-                    - zstd (z)
+    --compression,      Specify the compression method to use.
+                -c      This flag is optional, and only supports zip.
+                        Supported encryption types are:
+                        - bzip2 (bzip)
+                        - deflate (default)
+                        - zstd (z)
 EXAMPLES:
     fecr --unzip /path/to/zip -n "output_folder"
     fecr --zip /path/to/folder -n output.zip -c bzip2 -l 9

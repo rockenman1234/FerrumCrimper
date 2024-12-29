@@ -1,6 +1,6 @@
 [package]
 name = "fecr"
-version = "0.0.4"
+version = "0.0.5"
 edition = "2021"
 authors = ["Kenneth Alexander Jenkins <Kjenkins60@gatech.edu>", "Alan Daniel Aguilar <Aaguilar60@gatech.edu>"]
 description = "FerrumCrimper - A fast, Rust-powered CLI tool for efficient file management, compression, and archival with support for multiple formats and secure data handling."
