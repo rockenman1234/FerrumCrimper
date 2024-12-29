@@ -77,6 +77,8 @@ fn main() {
             
                 // Initialize file_name as None by default
                 let mut file_name: Option<String> = None;
+                let mut encryption_type: Option<String> = None;
+
             
                 // Check if -n or --name is provided for a custom name
                 let mut i = 3; // Start checking from index 3 for name-related flags
@@ -93,12 +95,29 @@ fn main() {
                         }
                         _ => {}
                     }
+                    match args[i].as_str() {
+                        "-e" | "--encryption" => {
+                            if i + 1 < args.len() {
+                                encryption_type = Some(args[i + 1].clone()); // Set the name from the next argument
+                                i += 1; // Skip the next argument as it's the value for --name or -n
+                            } else {
+                                println!("Error: You must specify a valid encryption type \n after the use of the -e or --encryption flag.");
+                                return;
+                            }
+                        }
+                        _ => {}
+                    }
                     i += 1;
                 }
             
                 // Call the zip_folder function with the folder path and file_name
-                let file_name = file_name.as_deref(); // Convert Option<String> to Option<&str>
-                match zip_folder(path, file_name) {
+
+                // Due to the way rust handles ownership, we need to convert the Option<String> to Option<&str>
+                let file_name = file_name.as_deref();
+                let encryption_type = encryption_type.as_deref();
+
+                // Call the zip_folder function with the folder path and file_name
+                match zip_folder(path, file_name, encryption_type) {
                     Ok(zip_path) => {
                         println!("Folder zipped to: {:?}", zip_path);
                     }

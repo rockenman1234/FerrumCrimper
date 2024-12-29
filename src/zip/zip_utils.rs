@@ -23,7 +23,7 @@ use walkdir::WalkDir;
 use std::io::Read;
 use zip::{write::SimpleFileOptions, CompressionMethod, ZipWriter};
 
-pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>) -> anyhow::Result<PathBuf> {
+pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, encryption_type: Option<&str>) -> anyhow::Result<PathBuf> {
     // Ensure the folder exists
     if !folder_dir.is_dir() {
         anyhow::bail!("Provided path is not a directory, or does not exist: {:?}", folder_dir);
@@ -40,6 +40,7 @@ pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>) -> anyhow::Result<
     let mut zip = ZipWriter::new(file);
     let options = SimpleFileOptions::default()
         .compression_method(CompressionMethod::Deflated)
+        .compression_level(None)
         .unix_permissions(0o755);
 
     // Buffer for reading files
