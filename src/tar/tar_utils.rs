@@ -16,16 +16,34 @@ pub fn tar_folder(
         anyhow::bail!("The provided folder path does not exist or is not a directory.");
     }
 
-    // Determine the output file name and path
-    let tar_file_name = file_name.unwrap_or("archive.tar");
+    // Get the folder's name to use as the base file name
+    let folder_name = folder_dir
+        .file_name()
+        .and_then(|name| name.to_str())
+        .ok_or_else(|| anyhow::anyhow!("Failed to determine folder name"))?;
+
+    // Determine the base tar file name
+    let base_tar_name = file_name.unwrap_or(folder_name);
+    let mut tar_file_name = format!("{}.tar", base_tar_name);
+
+    // Determine the output directory
     let output_path = match output_dir {
-        Some(dir) => Path::new(dir).join(tar_file_name),
-        None => Path::new(tar_file_name).to_path_buf(),
+        Some(dir) => Path::new(dir).to_path_buf(),
+        None => PathBuf::new(),
     };
 
+    // Resolve conflicts with existing file names by appending a number
+    let mut full_output_path = output_path.join(&tar_file_name);
+    let mut counter = 1;
+    while full_output_path.exists() {
+        tar_file_name = format!("{}-{}.tar", base_tar_name, counter);
+        full_output_path = output_path.join(&tar_file_name);
+        counter += 1;
+    }
+
     // Create the tar archive
-    let tar_file = File::create(&output_path)
-        .with_context(|| format!("Failed to create tar file at {:?}", output_path))?;
+    let tar_file = File::create(&full_output_path)
+        .with_context(|| format!("Failed to create tar file at {:?}", full_output_path))?;
     let mut tar_builder = Builder::new(tar_file);
 
     // Add the folder's contents to the archive
@@ -47,36 +65,47 @@ pub fn tar_folder(
         .finish()
         .with_context(|| "Failed to finalize the tar archive")?;
 
-    Ok(output_path)
+    Ok(full_output_path)
 }
 
 pub fn untar_file(
-    folder_dir: &Path,
+    tar_file_path: &Path,
     file_name: Option<&str>,
     output_dir: Option<&str>,
 ) -> Result<PathBuf> {
-    // Ensure the input folder exists
-    if !folder_dir.is_dir() {
-        anyhow::bail!("The provided folder path does not exist or is not a directory.");
-    }
-
-    // Determine the tar file name and its full path
-    let tar_file_name = file_name.unwrap_or("archive.tar");
-    let tar_file_path = folder_dir.join(tar_file_name);
-
-    // Ensure the tar file exists
+    // Ensure the input tar file exists
     if !tar_file_path.is_file() {
-        anyhow::bail!("The specified tar file does not exist: {:?}", tar_file_path);
+        anyhow::bail!("The provided tar file path does not exist or is not a file.");
     }
 
-    // Determine the output directory
-    let output_path = match output_dir {
+    // Get the tar file's name to use as the base name if no name is provided
+    let tar_file_name = tar_file_path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .ok_or_else(|| anyhow::anyhow!("Failed to determine tar file name"))?;
+
+    let base_name = file_name.unwrap_or_else(|| tar_file_name.trim_end_matches(".tar"));
+
+    // Determine the base output directory
+    let base_output_path = match output_dir {
         Some(dir) => Path::new(dir).to_path_buf(),
-        None => folder_dir.join("extracted"),
+        None => tar_file_path.parent().unwrap_or_else(|| Path::new(".")).join(format!("{}_extracted", base_name)),
     };
 
-    // Create the output directory if it doesn't exist
-    std::fs::create_dir_all(&output_path)
+    // Resolve conflicts by appending a number to the output directory
+    let mut output_path = base_output_path.clone();
+    let mut counter = 1;
+    while output_path.exists() {
+        output_path = base_output_path.with_file_name(format!(
+            "{}-{}",
+            base_output_path.file_name().unwrap().to_str().unwrap(),
+            counter
+        ));
+        counter += 1;
+    }
+
+    // Create the output directory
+    fs::create_dir_all(&output_path)
         .with_context(|| format!("Failed to create output directory {:?}", output_path))?;
 
     // Open the tar file
