@@ -31,7 +31,7 @@ use std::path::Path;
 // Definition of messages as constants
 const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information.";
 const GNU_LICENSE_MESSAGE: &str = r#"
-Ferrum Crimper Version 0.0.2,
+Ferrum Crimper Version 0.0.3,
 
 Copyright (C) 2024 - Present: Alan D. Aguilar, Kenneth A. Jenkins,
 and contributors. Licensed under the GNU GPLv2+: GNU General Public License version 2 or later.
@@ -73,8 +73,8 @@ OPERATORS:
                     - Zip levels range from 0 to 9. Default is 6.
                     - Deflated levels range from 0 to 9. Default is 6.
                     - Bzip2 levels range from 0 to 9. Default is 6.
-                    - Zstd levels range from -7 - 22, with zero 
-                      being mapped to default level. Default is 3.
+                    - Zstd levels range from -7 to 22, with zero 
+                      being mapped to the level. Default is 3.
 
     --compression,  Specify the compression method to use.
             -c      This flag is optional, and only supports zip.
@@ -83,8 +83,8 @@ OPERATORS:
                     - deflate (default)
                     - zstd (z)
 EXAMPLES:
-    ferrumcrimper --zip /path/to/folder -n output.zip -e bzip2 -l 9
     ferrumcrimper --unzip /path/to/zip -n "output_folder"
+    ferrumcrimper --zip /path/to/folder -n output.zip -c bzip2 -l 9
     fecr --license
 "#;
 
@@ -135,7 +135,7 @@ fn main() {
                         _ => {}
                     }
                     match args[i].as_str() {
-                        "-e" | "--encryption" => {
+                        "-c" | "--compression" => {
                             if i + 1 < args.len() {
                                 encryption_type = Some(args[i + 1].clone()); // Set the name from the next argument
                                 i += 1; // Skip the next argument as it's the value for --name or -n
@@ -164,7 +164,6 @@ fn main() {
                         }
                         _ => {}
                     }
-
                     i += 1;
                 }
             
