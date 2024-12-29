@@ -1,20 +1,4 @@
 // Copyright 2024 the FerrumCrimper authors. All rights reserved. GNUv2 license.
-//  _
-// | |
-// | |===( )   //////
-// |_|   |||  | o o|
-//        ||| ( c  )                  ____
-//         ||| \= /                  ||   \_
-//          ||||||                   ||     |
-//          ||||||                ...||__/|-"
-//          ||||||             __|________|__
-//            |||             |______________|
-//            |||             || ||      || ||
-//            |||             || ||      || ||
-// -----------|||-------------||-||------||-||-------
-//            |__>            || ||      || ||
-//       FerrumCrimper's Zip implementation - src/zip/zip_utils.rs
-//             See above for our compression implementation.
 
 use std::fs::File;
 use std::io::Write;
@@ -23,7 +7,7 @@ use walkdir::WalkDir;
 use std::io::Read;
 use zip::{write::SimpleFileOptions, CompressionMethod, ZipWriter};
 
-pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, encryption_type: Option<&str>) -> anyhow::Result<PathBuf> {
+pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, encryption_type: Option<&str>, compression_level: Option<i64>) -> anyhow::Result<PathBuf> {
     // Ensure the folder exists
     if !folder_dir.is_dir() {
         anyhow::bail!("Provided path is not a directory, or does not exist: {:?}", folder_dir);
@@ -31,16 +15,45 @@ pub fn zip_folder(folder_dir: &Path, file_name: Option<&str>, encryption_type: O
 
     // Determine the output ZIP file path
     let zip_path = match file_name {
-        Some(name) => folder_dir.parent().unwrap_or_else(|| Path::new(".")).join(name).with_extension("zip"),
+        Some(name) => folder_dir
+            .parent()
+            .unwrap_or_else(|| Path::new("."))
+            .join(name)
+            .with_extension("zip"),
         None => folder_dir.with_extension("zip"),
     };
+
+
+    // Determine the compression method
+    let compression_method = match encryption_type {
+        Some("bzip2") | Some("bzip") => CompressionMethod::Bzip2,
+        Some("deflate") | Some("default") => CompressionMethod::Deflated,
+        Some("zstd") | Some("z") => CompressionMethod::Zstd,
+        Some(invalid) => {
+            panic!("Invalid compression method: '{}'", invalid);
+        },
+        None => CompressionMethod::Deflated,
+    };
+
+    // Determine the compression level
+    let compression_amount = match compression_level {
+        Some(level) => level,
+        None => {
+            if compression_method == CompressionMethod::Zstd {
+                3
+            } else {
+                6
+            }
+        }
+    };    
+
 
     // Create the ZIP file
     let file = File::create(&zip_path)?;
     let mut zip = ZipWriter::new(file);
     let options = SimpleFileOptions::default()
-        .compression_method(CompressionMethod::Deflated)
-        .compression_level(None)
+        .compression_method(compression_method)
+        .compression_level(Some(compression_amount))
         .unix_permissions(0o755);
 
     // Buffer for reading files
