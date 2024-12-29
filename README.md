@@ -29,8 +29,12 @@ cargo install fecr
 [Be sure to check out or crates.io page here!](https://crates.io/crates/fecr)
 
 #### Looking For Pre-Built Binaries?
+Unfortunately, we do not have pre-built binaries available at this time. We recommend building from source using the instructions below if you are unable to use Crates.io.
+
+<!--- 
 - Visit the [Releases page](https://github.com/rockenman1234/ferrumcrimper/releases) to download the latest version for your platform.
 - Extract the downloaded file for your operating system, and place it in a directory included in your system’s `PATH`.
+--->
 
 ## Build From Source 🤓
 1. Ensure that you have Rust and Cargo installed. [You can install Rust here](https://www.rust-lang.org/).
@@ -61,13 +65,28 @@ FerrumCrimper is designed to provide efficient file management and compression w
 
 ## Supported File Formats ⚙️
 > [!NOTE]
-> This project is still in active development, as of `v0.0.2` the archiving and unarchiving of zip files is suppprted with user defined names.
+> This project is still in active development, as of `v0.0.2` the archiving and unarchiving of zip files is suppprted.
+> See the usage below for more information.
 > Run `fecr -h` for more info.
 
 FerrumCrimper plans to support a wide range of file formats for both compression and extraction:
 
-- ZIP: Zip archive and unarchive support.
-  - Use `--zip` to compress, `--unzip` to extract.
+- ZIP: Zip Archive and Unarchive Support:
+  - Use `--zip` or `-z` to compress a directory.
+  - Use `--unzip` or `-uz` to unextract a file.
+  - Use `--name` or `-n` to specify the name of the output.
+  - Use `--output` or `-o` to specify the output directory.
+  - Use `--level` or `-l` to specify the compression level.
+    - The following compression levels are supported:
+      - Deflated levels range from 0 to 9. Default is 6.
+      - Bzip2 levels range from 0 to 9. Default is 6.
+      - Zstd levels range from -7 to 22, with zero 
+        being mapped to the level. Default is 3.
+  - Use `--compression` or `-c` to specify the compression method.
+    - The following compression methods are supported:
+      - bzip2 (bzip)
+      - deflate (default)
+      - zstd (z)
 - TAR: Tar support coming soon!
 - GZ: Gzip support coming soon!
 - 7Z: 7zip support coming soon!

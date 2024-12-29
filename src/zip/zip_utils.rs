@@ -95,7 +95,7 @@ pub fn zip_folder(
     Ok(zip_path)
 }
 
-pub fn unzip_folder(zip_file_dir: &Path, file_name: Option<&str>) -> anyhow::Result<PathBuf> {
+pub fn unzip_file(zip_file_dir: &Path, file_name: Option<&str>, output_dir: Option<&str>) -> anyhow::Result<PathBuf> {
     // Ensure the file exists and is a valid file
     if !zip_file_dir.is_file() {
         anyhow::bail!("Provided path is not a file, or does not exist: {:?}", zip_file_dir);
@@ -107,8 +107,14 @@ pub fn unzip_folder(zip_file_dir: &Path, file_name: Option<&str>) -> anyhow::Res
         None => zip_file_dir.file_stem().unwrap_or_default().to_string_lossy().into_owned(),
     };
 
+    // Determine the output directory
+    let output_dir = match output_dir {
+        Some(dir) => Path::new(dir).join(&base_name),
+        None => zip_file_dir.parent().unwrap_or_else(|| Path::new(".")).join(&base_name),
+    };
+
     // Ensure the output directory does not conflict
-    let mut output_dir = zip_file_dir.parent().unwrap_or_else(|| Path::new(".")).join(&base_name);
+    let mut output_dir = output_dir;
     let mut counter = 1;
     while output_dir.exists() {
         output_dir = zip_file_dir
@@ -151,6 +157,5 @@ pub fn unzip_folder(zip_file_dir: &Path, file_name: Option<&str>) -> anyhow::Res
             std::fs::set_permissions(&out_path, std::fs::Permissions::from_mode(mode))?;
         }
     }
-
     Ok(output_dir)
 }

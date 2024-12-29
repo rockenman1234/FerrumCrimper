@@ -15,10 +15,6 @@ categories = ["command-line-utilities", "command-line-interface", "encoding", "c
 name = "fecr"
 path = "src/main.rs"
 
-[[bin]]
-name = "ferrumcrimper"
-path = "src/main.rs"
-
 [dependencies]
 anyhow = "1.0.94"
 tar = "0.4.43"

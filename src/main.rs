@@ -24,14 +24,14 @@ mod tar;
 
 // Import the necessary modules from std and crates
 use crate::zip::zip_utils::zip_folder;
-use crate::zip::zip_utils::unzip_folder;
+use crate::zip::zip_utils::unzip_file;
 use std::env;
 use std::path::Path;
 
 // Definition of messages as constants
 const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information.";
 const GNU_LICENSE_MESSAGE: &str = r#"
-Ferrum Crimper Version 0.0.3,
+Ferrum Crimper Version 0.0.4,
 
 Copyright (C) 2024 - Present: Alan D. Aguilar, Kenneth A. Jenkins,
 and contributors. Licensed under the GNU GPLv2+: GNU General Public License version 2 or later.
@@ -54,6 +54,8 @@ MODES:
 
     --help,  -h     Displays this helpful message.
 
+    --version, -v   Displays the version of FerrumCrimper.
+
     --zip,   -z     Zip a folder, you may use 
                     the operators listed below
                     in conjunction with this flag.
@@ -74,7 +76,6 @@ OPERATORS:
     --level, -l     Specify the compression level to
                     use when zipping a folder. This 
                     flag is optional.
-                    - Zip levels range from 0 to 9. Default is 6.
                     - Deflated levels range from 0 to 9. Default is 6.
                     - Bzip2 levels range from 0 to 9. Default is 6.
                     - Zstd levels range from -7 to 22, with zero 
@@ -87,8 +88,8 @@ OPERATORS:
                     - deflate (default)
                     - zstd (z)
 EXAMPLES:
-    ferrumcrimper --unzip /path/to/zip -n "output_folder"
-    ferrumcrimper --zip /path/to/folder -n output.zip -c bzip2 -l 9
+    fecr --unzip /path/to/zip -n "output_folder"
+    fecr --zip /path/to/folder -n output.zip -c bzip2 -l 9
     fecr --license
 "#;
 
@@ -101,6 +102,9 @@ fn main() {
         match args[1].as_str() {
             "--hello" => {
                 println!("Hello, World! And Go Jackets! 🐝");
+            }
+            "--version" | "-v" => {
+                println!("{}", GNU_LICENSE_MESSAGE.trim_start());
             }
             "--license" => {
                 println!("{}", GNU_LICENSE_MESSAGE.trim_start());
@@ -205,6 +209,7 @@ fn main() {
             
                 // Initialize file_name as None by default
                 let mut file_name: Option<String> = None;
+                let mut output_dir: Option<String> = None;
 
                 // Check if -n or --name is provided
                 let mut i = 3; // Start checking from index 3 for name-related flags
@@ -216,6 +221,12 @@ fn main() {
                                 i += 1; // Skip the next argument as it's the value for --name or -n
                             } 
                         }
+                        "--output" | "-o" => {
+                            if i + 1 < args.len() {
+                                output_dir = Some(args[i + 1].clone());
+                                i += 1;
+                            }
+                        }
                         _ => {}
                     }
                     i += 1;
@@ -223,7 +234,8 @@ fn main() {
 
                 // Call the unzip_folder function with the zip file path and file_name
                 let file_name = file_name.as_deref(); // Convert Option<String> to Option<&str>
-                match unzip_folder(path, file_name) {
+                let output_dir = output_dir.as_deref(); // Convert Option<String> to Option<&str>
+                match unzip_file(path, file_name, output_dir) {
                     Ok(extracted_path) => {
                         println!("Files extracted to: {:?}", extracted_path);
                     }
