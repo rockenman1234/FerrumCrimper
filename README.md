@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./docs/assets/ferris.png" width="200px" align="center">
+<img src="https://github.com/rockenman1234/FerrumCrimper/blob/main/docs/assets/ferris.png?raw=true" width="200px" align="center">
 
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
 
