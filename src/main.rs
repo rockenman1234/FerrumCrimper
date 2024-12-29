@@ -98,6 +98,7 @@ OPERATORS:
 EXAMPLES:
     fecr --unzip /path/to/zip -n "output_folder"
     fecr --zip /path/to/folder -n output.zip -c bzip2 -l 9
+    fecr --tar /path/to/folder -n output.tar -o /path/to/output
     fecr --license
 "#;
 
