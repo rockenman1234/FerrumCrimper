@@ -140,7 +140,7 @@ fn main() {
                                 encryption_type = Some(args[i + 1].clone()); // Set the name from the next argument
                                 i += 1; // Skip the next argument as it's the value for --name or -n
                             } else {
-                                println!("Error: You must specify a valid encryption type \n after the use of the -e or --encryption flag.");
+                                println!("Error: You must specify a valid compression type \n after the use of the -c or --compression flag.");
                                 return;
                             }
                         }
@@ -158,7 +158,7 @@ fn main() {
                                 }; // Set the name from the next argument
                                 i += 1; // Skip the next argument as it's the value for --name or -n
                             } else {
-                                println!("Error: You must specify a valid encryption type \n after the use of the -e or --encryption flag.");
+                                println!("Error: You must specify a valid compression level \n after the use of the -l or --level flag.");
                                 return;
                             }
                         }
