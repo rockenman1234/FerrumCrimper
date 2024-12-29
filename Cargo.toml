@@ -17,6 +17,6 @@ path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.94"
-tar = "0.4.43"
+tar = "0.4"
 walkdir = "2.5.0"
 zip = "2.2.1"
