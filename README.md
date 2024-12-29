@@ -66,6 +66,7 @@ FerrumCrimper is designed to provide efficient file management and compression w
 ## Supported File Formats ⚙️
 > [!NOTE]
 > This project is still in active development, as of `v0.0.2` the archiving and unarchiving of zip files is suppprted.
+> As of `0.0.5`, the archiving and unarchiving of tar files is supported.
 > See the usage below for more information.
 > Run `fecr -h` for more info.
 
@@ -87,7 +88,11 @@ FerrumCrimper plans to support a wide range of file formats for both compression
       - bzip2 (bzip)
       - deflate (default)
       - zstd (z)
-- TAR: Tar support coming soon!
+- TAR: Tar archive and unarchive support:
+  - Use `--tar` or `-t` to compress a directory.
+  - Use `--untar` or `-ut` to unextract a file.
+  - Use `--name` or `-n` to specify the name of the output.
+  - Use `--output` or `-o` to specify the output directory.
 - GZ: Gzip support coming soon!
 - 7Z: 7zip support coming soon!
 - BZIP2: BZip2 support coming soon!
