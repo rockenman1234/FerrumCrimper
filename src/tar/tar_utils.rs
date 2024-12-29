@@ -26,10 +26,10 @@ pub fn tar_folder(
     let base_tar_name = file_name.unwrap_or(folder_name);
     let mut tar_file_name = format!("{}.tar", base_tar_name);
 
-    // Determine the output directory
+    // Determine the output path
     let output_path = match output_dir {
         Some(dir) => Path::new(dir).to_path_buf(),
-        None => PathBuf::new(),
+        None => folder_dir.parent().unwrap_or_else(|| Path::new(".")).to_path_buf(),
     };
 
     // Resolve conflicts with existing file names by appending a number
@@ -52,12 +52,18 @@ pub fn tar_folder(
     {
         let entry = entry.with_context(|| "Failed to read directory entry")?;
         let path = entry.path();
+
+        // Recursively add files and directories
         if path.is_file() {
             let mut file = File::open(&path)
                 .with_context(|| format!("Failed to open file {:?}", path))?;
             tar_builder
-                .append_file(path.file_name().unwrap(), &mut file)
+                .append_file(path.strip_prefix(folder_dir).unwrap(), &mut file)
                 .with_context(|| format!("Failed to add file {:?} to tar archive", path))?;
+        } else if path.is_dir() {
+            tar_builder
+                .append_dir_all(path.strip_prefix(folder_dir).unwrap(), &path)
+                .with_context(|| format!("Failed to add directory {:?} to tar archive", path))?;
         }
     }
 
