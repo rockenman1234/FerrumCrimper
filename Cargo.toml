@@ -1,9 +1,9 @@
 [package]
 name = "fecr"
-version = "0.0.5"
+version = "0.0.6"
 edition = "2021"
 authors = ["Kenneth Alexander Jenkins <Kjenkins60@gatech.edu>", "Alan Daniel Aguilar <Aaguilar60@gatech.edu>"]
-description = "FerrumCrimper - A fast, Rust-powered CLI tool for efficient file management, compression, and archival with support for multiple formats and secure data handling."
+description = "FerrumCrimper - A Rust-powered CLI tool for efficient file management, compression, and archival with support for multiple formats and secure data handling."
 readme = "README.md"
 license = "GPL-2.0-or-later"
 license-file = "LICENSE.txt"
@@ -17,6 +17,7 @@ path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.94"
+flate2 = "1.0.35"
 tar = "0.4"
 walkdir = "2.5.0"
 zip = "2.2.1"
