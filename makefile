@@ -11,3 +11,7 @@ clean:
 	cargo clean
 
 all: clean build run
+
+debug:
+	@echo "Building the program in debug mode..."
+	cargo build --verbose
