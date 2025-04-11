@@ -15,7 +15,7 @@
 //            |__>            || ||      || ||
 //          FerrumCrimper - All nuts and bolts included.
 //          See above for our compression implementation.
-//          GNU GPLv2+ license. No warranties.
+//          GNU GPLv2 license. No warranties.
 //          Use `fecr --help` for more information.
 
 // Import the submodules

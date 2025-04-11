@@ -15,7 +15,7 @@ A fast, Rust-powered CLI tool for efficient file management, compression, and ar
 </div>
 
 > [!CAUTION]
-> This project is still in active development, use at your own risk! Multithreading support still a work in progress.
+> This project is still in active development, use at your own risk! Single threaded only, multithreading support coming soon!
 
 ## Installation 🦾
 
@@ -56,6 +56,8 @@ place them in a directory included in your system’s `PATH`. Compiled binaries 
 
 ## Why Use FerrumCrimper? ℹ️
 
+FerrumCrimper was started as a personal project by lead developers Alex and Alan (B.S. Computer Engineering students at Georgia Tech) to create a fast, efficient, and secure file management tool. The goal was to provide a simple command-line interface for compressing and extracting files while ensuring high performance and security. We also wanted to create a project that would sharpen our skills in Rust and provide a fun challenge!
+
 FerrumCrimper is designed to provide efficient file management and compression with these benefits:
 
 - __Speed and Performance:__ Built with Rust, FerrumCrimper delivers fast compression and extraction, optimized for low latency and efficient resource usage. It also supports threaded operation, enabling faster speeds by leveraging multiple cores for parallel processing.
@@ -67,6 +69,7 @@ FerrumCrimper is designed to provide efficient file management and compression w
 > [!NOTE]
 > This project is still in active development, as of `v0.0.2` the archiving and unarchiving of zip files is suppprted.
 > As of `v0.0.5`, the archiving and unarchiving of tar files is supported.
+> As of `v0.0.6`, the archiving and unarchiving of gzip files is supported.
 > See the usage below for more information.
 > Run `fecr -h` for more info.
 
@@ -93,7 +96,14 @@ FerrumCrimper plans to support a wide range of file formats for both compression
   - Use `--untar` or `-ut` to unextract a file.
   - Use `--name` or `-n` to specify the name of the output.
   - Use `--output` or `-o` to specify the output directory.
-- GZ: Gzip support coming soon!
+- GZ: Gzip archive and unarchive support:
+  - Use `--gzip` or `-g` to compress a directory.
+  - Use `--ungzip` or `-ug` to unextract a file.
+  - Use `--name` or `-n` to specify the name of the output.
+  - Use `--output` or `-o` to specify the output directory.
+  - Use `--level` or `-l` to specify the compression level.
+    - The following compression levels are supported:
+      - gzip compression levels range from 0 to 9. Default is 6.
 - 7Z: 7zip support coming soon!
 - BZIP2: BZip2 support coming soon!
 - XZ: Xz support comming soon!
