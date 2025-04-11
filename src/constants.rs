@@ -1,6 +1,6 @@
 // Copyright 2024 the FerrumCrimper authors. All rights reserved. GNUv2 license.
 
-pub const VERSION_MESSAGE: &str = "FerrumCrimper(fecr) Version 0.0.6";
+pub const VERSION_MESSAGE: &str = "FerrumCrimper(fecr) Version 0.0.7";
 
 pub const UNKOWN_FLAG_MESSAGE: &str = "Unknown flag Use --help for usage information.";
 
@@ -18,59 +18,59 @@ This is free software, and you are welcome to redistribute it
 under certain conditions, as described above. Type `fecr --help` for assistance."#;
 
 pub const HELP_MESSAGE: &str = r#"
-ferrumcrimper (fecr): A simple command-line tool for crimping files
+FerrumCrimper (fecr): A simple command-line tool for crimping files.
 
-USEAGE:
-    FerrumCrimper [MODE] [INPUT PATH] [OPERATOR]
+USAGE:
+    fecr [MODE] [INPUT_PATH] [OPTIONS]
 
 MODES:
-    --license           Prints the license information.
+    --license           Display license information.
 
-    --help,     -h      Displays this helpful message.
+    --help,     -h      Show this help message.
 
-    --version,  -v      Displays the version of FerrumCrimper.
+    --version,  -v      Show the version of FerrumCrimper.
 
-    --zip,      -z      Zip a folder, you may use any of
-                        the operators listed below
-                        in conjunction with this flag.
+    --zip,      -z      Zip a folder. You may use any of the
+                        options listed below in conjunction
+                        with this flag.
 
-    --unzip,    -uz     Unzip a folder, only the 
-                        name and output operator is supported.
+    --unzip,    -uz     Unzip a folder. Only the 
+                        --name and --output options are supported.
 
-    --tar,      -t      Tar a folder, only the name
-                        operator and output operator
-                        is supported.
+    --tar,      -t      Create a tar archive of a folder. Only
+                        the --name and --output options are supported.
 
-    --untar,    -ut     Untar a folder, only the name
-                        operator and output operator
-                        is supported.                                   
+    --untar,    -ut     Extract a tar archive. Only the 
+                        --name and --output options are supported.
 
-OPERATORS:
-    --name,     -n      Specify the name of the output 
-                        file or folder. This is optional,
-                        and defaults to the inputed
-                        folder or file name.
-    
-    --output,   -o      Specify the output directory for
-                        the extracted files. This is optional,
-                        and defaults to the current directory.
+    --gzip,     -gz     Compress a folder with gzip. Only the
+                        --name, --level, and --output options are supported.
 
-    --level,    -l      Specify the compression level to
-                        use when zipping a folder. This 
-                        flag is optional.
-                        - Deflated levels range from 0 to 9. Default is 6.
-                        - Bzip2 levels range from 0 to 9. Default is 6.
-                        - Zstd levels range from -7 to 22, with zero 
-                          being mapped to the level. Default is 3.
+    --ungzip,   -ugz    Decompress a gzip archive. Only the
+                        --name and --output options are supported.
 
-    --compression,      Specify the compression method to use.
-                -c      This flag is optional, and only supports zip.
-                        Supported encryption types are:
-                        - bzip2 (bzip)
+OPTIONS:
+    --name,     -n      Specify the name of the output file or folder.
+                        This is optional and defaults to the name of
+                        the input folder or file.
+
+    --output,   -o      Specify the output directory for the result.
+                        Optional; defaults to the current directory.
+
+    --level,    -l      Specify the compression level.
+                        Optional; only applicable to compression modes.
+                        - Deflate: 0-9 (default: 6)
+                        - Bzip2:   0-9 (default: 6)
+                        - Zstd:   -7-22 (0 maps to level 0, default: 3)
+
+    --compression, -c   Specify the compression algorithm (zip only).
+                        Optional. Supported values:
                         - deflate (default)
+                        - bzip2 (bzip)
                         - zstd (z)
+
 EXAMPLES:
-    fecr --unzip /path/to/zip -n "output_folder"
+    fecr --unzip /path/to/archive.zip -n output_folder
     fecr --zip /path/to/folder -n output.zip -c bzip2 -l 9
     fecr --tar /path/to/folder -n output.tar -o /path/to/output
     fecr --license
